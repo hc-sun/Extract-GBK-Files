@@ -7,9 +7,12 @@ def extract(file_name):
     with ZipFile(file_name, 'r') as zf:
         for info in zf.infolist():
             cur_name = info.filename
-            info.filename = cur_name.encode('cp437').decode('gbk')
-            zf.extract(info)            
-            print("File extracted to {}".format(info.filename))
+            try:
+                info.filename = cur_name.encode('cp437').decode('gbk')
+                zf.extract(info)            
+                print("File extracted to {}".format(info.filename))
+            except:
+                print("Not GBK encoding file name.")
 
 
 def main(argv):
